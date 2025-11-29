@@ -245,9 +245,11 @@ if __name__ == "__main__":
     dad = Node(name="Dad", children=[me])
     mom.mate = dad
     dad.mate = mom
-    aunt = Node(required_phenotype=Phenotype.REC, name="Aunt")
-    uncle = Node(name="Uncle")
+    cousin = Node(name="Cousin", required_phenotype=Phenotype.REC)
+    aunt = Node(name="Aunt", children=[cousin])
+    uncle = Node(name="Uncle", children=[cousin])
     aunt.mate = uncle
+    uncle.mate = aunt
     grandma = Node(name="Grandma", children=[mom, aunt])
     grandpa = Node(name="Grandpa", children=[mom, aunt])
     grandma.mate = grandpa
