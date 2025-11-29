@@ -240,13 +240,25 @@ class FamilyTree:
 if __name__ == "__main__":
     tree = Tree()
 
-    me = Node(name="Me")
-    mom = Node(required_phenotype=Phenotype.DOM, name="Mom", children=[me])
-    dad = Node(name="Dad", children=[me], mate=mom)
+    me = Node(required_phenotype=Phenotype.DOM, name="Me")
+    mom = Node(name="Mom", children=[me])
+    dad = Node(name="Dad", children=[me])
     mom.mate = dad
+    dad.mate = mom
+    aunt = Node(required_phenotype=Phenotype.REC, name="Aunt")
+    uncle = Node(name="Uncle")
+    aunt.mate = uncle
+    grandma = Node(name="Grandma", children=[mom, aunt])
+    grandpa = Node(name="Grandpa", children=[mom, aunt])
+    grandma.mate = grandpa
+    grandpa.mate = grandma
     tree.add_node(me)
-    tree.add_node(mom, is_first_gen=True)
+    tree.add_node(mom)
     tree.add_node(dad)
+    tree.add_node(aunt)
+    tree.add_node(uncle)
+    tree.add_node(grandma, is_first_gen=True)
+    tree.add_node(grandpa)
     tree.simulate(100000)
     family_tree = tree.convert_to_family_tree()
     family_tree.generate_graph("family_tree_example")
